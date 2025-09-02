@@ -59,7 +59,7 @@ def productos():
 
     FROM productos
 
-    LIMIT 10 OFFSET 0
+    LIMIT 20 OFFSET 0
     """
 
     cursor.execute(sql)
@@ -101,7 +101,7 @@ def buscarProductos():
 
     ORDER BY Id_Producto DESC
 
-    LIMIT 10 OFFSET 0
+    LIMIT 20 OFFSET 0
     """
     val    = (busqueda, busqueda, busqueda)
 
@@ -207,4 +207,5 @@ def eliminarProducto():
     con.close()
 
     return make_response(jsonify({}))
+
 
