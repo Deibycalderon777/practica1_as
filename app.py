@@ -1,3 +1,4 @@
+
 # python.exe -m venv .venv
 # cd .venv/Scripts
 # activate.bat
@@ -45,7 +46,7 @@ def app2():
 
     return "<h5>Hola, soy la view app</h5>"
 
-@app.route("/productos")
+@app.route("/tbodyProductos")
 def productos():
     if not con.is_connected():
         con.reconnect()
@@ -77,7 +78,7 @@ def productos():
         registro["Hora"]       = fecha_hora.strftime("%H:%M:%S")
     """
 
-    return render_template("productos.html", productos=registros)
+    return render_template("tbodyProductos.html", productos=registros)
 
 @app.route("/productos/ingredientes/<int:id>")
 def productos2(id):
@@ -228,3 +229,4 @@ def eliminarProducto():
     con.close()
 
     return make_response(jsonify({}))
+
