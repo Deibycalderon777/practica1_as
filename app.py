@@ -59,7 +59,9 @@ def productos():
 
     FROM productos
 
-    LIMIT 20 OFFSET 0
+    ORDER BY Id_Producto DESC
+
+    LIMIT 10 OFFSET 0
     """
 
     cursor.execute(sql)
@@ -76,6 +78,25 @@ def productos():
     """
 
     return render_template("productos.html", productos=registros)
+
+@app.route("/productos/ingredientes/<int:id>")
+def productos2(id):
+    if not con.is_connected():
+        con.reconnect()
+
+    cursor = con.cursor(dictionary=True)
+    sql    = """
+    SELECT productos.Nombre_Producto, ingredientes.*, productos_ingredientes.Cantidad FROM productos_ingredientes
+    INNER JOIN productos ON productos.Id_Producto = productos_ingredientes.Id_Producto
+    INNER JOIN ingredientes ON ingredientes.Id_Ingrediente = productos_ingredientes.Id_Ingrediente
+    WHERE productos_ingredientes.Id_Producto = %s
+    ORDER BY productos.Nombre_Producto
+    """
+
+    cursor.execute(sql, (id, ))
+    registros = cursor.fetchall()
+
+    return render_template("modal.html", productosIngredientes=registros)
 
 @app.route("/productos/buscar", methods=["GET"])
 def buscarProductos():
@@ -101,7 +122,7 @@ def buscarProductos():
 
     ORDER BY Id_Producto DESC
 
-    LIMIT 20 OFFSET 0
+    LIMIT 10 OFFSET 0
     """
     val    = (busqueda, busqueda, busqueda)
 
@@ -207,5 +228,4 @@ def eliminarProducto():
     con.close()
 
     return make_response(jsonify({}))
-
 
