@@ -31,9 +31,9 @@ def pusherProductos():
     import pusher
     
     pusher_client = pusher.Pusher(
-      app_id="2046005",
-      key="e57a8ad0a9dc2e83d9a2",
-      secret="8a116dd9600a3b04a3a0",
+      app_id="2046025",
+      key="48294aad3f28c3669613",
+      secret="5c287b63141dae2934ef",
       cluster="us2",
       ssl=True
     )
@@ -249,6 +249,7 @@ def eliminarProducto():
     con.close()
 
     return make_response(jsonify({}))
+
 
 
 
